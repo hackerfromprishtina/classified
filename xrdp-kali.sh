@@ -20,14 +20,14 @@ read -p "Choose ngrok region: " CRP
 echo "===================================="
 echo "Install VNC Kali Linux"
 echo "===================================="
-docker pull danielguerra/ubuntu-xrdp:kali
+docker pull lukaszlach/kali-desktop
 clear
 echo "===================================="
 echo "Start VNC Kali Linux"
 echo "===================================="
 echo "===================================="
-echo "Username : ubuntu"
-echo "Password : ubuntu"
+echo "Username : kali"
+echo "Password : kali"
 echo "VNC Address:"
 curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p' | sed 's/0.tcp/6.tcp/'
 echo "IP:" && curl --silent --show-error ipconfig.io
@@ -37,7 +37,7 @@ echo "Don't close this tab to keep VNC running"
 echo "Wait to finish bot and next open your VNC client to connect"
 echo "===================================="
 echo "===================================="
-docker run --rm --hostname root --shm-size 1g -p 5900:5900 danielguerra/ubuntu-xrdp:kali > /dev/null 2>&1
+docker run --rm --hostname kali --shm-size 1g -p 5900:5900 lukaszlach/kali-desktop > /dev/null 2>&1
 b='\033[1m'
 r='\E[31m'
 g='\E[32m'
