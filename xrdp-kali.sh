@@ -1,6 +1,6 @@
 #!/bin/sh
-# Free XRDP KaliLinux | https://aank.me/Youtube
-rm -rf ngrok ngrok.zip ng.sh xrdp-kali.sh x.sh > /dev/null 2>&1
+# Free XRDP | https://aank.me/Youtube
+rm -rf ngrok ngrok.zip ng.sh xrdp.sh x.sh > /dev/null 2>&1
 wget -O ng.sh https://bit.ly/GCngr0k > /dev/null 2>&1
 chmod +x ng.sh
 ./ng.sh
@@ -18,16 +18,16 @@ echo "in - India (Mumbai)"
 read -p "choose ngrok region: " CRP
 ./ngrok tcp --region $CRP 3388 &>/dev/null &
 echo "===================================="
-echo "Install XRDP Kali Linux"
+echo "Install XRDP"
 echo "===================================="
-docker pull kalilinux/kali-rolling  # Use the kali-rolling image from Docker Hub
+docker pull danchitnis/xrdp
 clear
 echo "===================================="
-echo "Start XRDP Kali Linux"
+echo "Start XRDP"
 echo "===================================="
 echo "===================================="
-echo "Username : kali"
-echo "Password : kali"
+echo "Username : ubuntu"
+echo "Password : ubuntu"
 echo "XRDP Address:"
 curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p'
 echo "IP:" && curl --silent --show-error ipconfig.io
@@ -37,7 +37,7 @@ echo "Don't close this tab to keep RDP running"
 echo "Wait to finish bot and next open RDC to connect"
 echo "===================================="
 echo "===================================="
-docker run --rm --hostname aank --shm-size 1g -p 3388:3389 kalilinux/kali-rolling > /dev/null 2>&1
+docker run --rm --hostname aank --shm-size 1g -p 3388:3389 danchitnis/xrdp > /dev/null 2>&1
 b='\033[1m'
 r='\E[31m'
 g='\E[32m'
