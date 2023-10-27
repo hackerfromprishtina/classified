@@ -1,12 +1,12 @@
 #!/bin/sh
 # Free XRDP KaliLinux | https://aank.me/Youtube
-rm -rf ngrok ngrok.zip ng.sh x.sh > /dev/null 2>&1
+rm -rf ngrok ngrok.zip ng.sh xrdp-kali.sh x.sh > /dev/null 2>&1
 wget -O ng.sh https://bit.ly/GCngr0k > /dev/null 2>&1
 chmod +x ng.sh
-./ng.sh authtoken 2KbuGYwdWjP7k5ToRoGWpqYZzHe_46powYYZXL35ugHKJtruJ
+./ng.sh
 clear
 echo "======================="
-echo "Choose ngrok region"
+echo choose ngrok region
 echo "======================="
 echo "us - United States (Ohio)"
 echo "eu - Europe (Frankfurt)"
@@ -15,12 +15,12 @@ echo "au - Australia (Sydney)"
 echo "sa - South America (Sao Paulo)"
 echo "jp - Japan (Tokyo)"
 echo "in - India (Mumbai)"
-read -p "Choose ngrok region: " CRP
+read -p "choose ngrok region: " CRP
 ./ngrok tcp --region $CRP 3388 &>/dev/null &
 echo "===================================="
 echo "Install XRDP Kali Linux"
 echo "===================================="
-docker pull kalilinux/kali-rolling
+docker pull kalilinux/kali-rolling  # Use the kali-rolling image from Docker Hub
 clear
 echo "===================================="
 echo "Start XRDP Kali Linux"
@@ -28,18 +28,16 @@ echo "===================================="
 echo "===================================="
 echo "Username : kali"
 echo "Password : kali"
-echo "RDP Address:"
-IP=$(./ngrok tcp --region $CRP 3388 | grep "Forwarding" | awk '{print $4}')
-PORT=$(./ngrok tcp --region $CRP 3388 | grep "Forwarding" | awk -F ':' '{print $2}')
-echo "$IP:$PORT"
+echo "XRDP Address:"
+curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p'
 echo "IP:" && curl --silent --show-error ipconfig.io
 echo "===================================="
 echo "===================================="
 echo "Don't close this tab to keep RDP running"
-echo "Wait to finish bot and next open RDP client to connect"
+echo "Wait to finish bot and next open RDC to connect"
 echo "===================================="
 echo "===================================="
-docker run --rm -it --hostname aank -p $PORT:3389 kalilinux/kali-rolling > /dev/null 2>&1
+docker run --rm --hostname aank --shm-size 1g -p 3388:3389 kalilinux/kali-rolling > /dev/null 2>&1
 b='\033[1m'
 r='\E[31m'
 g='\E[32m'
