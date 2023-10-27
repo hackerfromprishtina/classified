@@ -29,8 +29,7 @@ echo "===================================="
 echo "Username : ubuntu"
 echo "Password : ubuntu"
 echo "VNC Address:"
-VNC_ADDR=$(curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p' | sed 's/0.tcp/6.tcp')  # Modify ngrok URL
-echo "$VNC_ADDR"
+curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p' | sed 's/0.tcp/6.tcp/'
 echo "IP:" && curl --silent --show-error ipconfig.io
 echo "===================================="
 echo "===================================="
