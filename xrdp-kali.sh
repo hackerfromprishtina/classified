@@ -1,5 +1,5 @@
 #!/bin/sh
-# Free VNC KaliLinux | https://aank.me/Youtube
+# Free RDP KaliLinux | https://aank.me/Youtube
 rm -rf ngrok ngrok.zip ng.sh xrdp-kali.sh x.sh > /dev/null 2>&1
 wget -O ng.sh https://bit.ly/GCngr0k > /dev/null 2>&1
 chmod +x ng.sh
@@ -16,28 +16,30 @@ echo "sa - South America (Sao Paulo)"
 echo "jp - Japan (Tokyo)"
 echo "in - India (Mumbai)"
 read -p "Choose ngrok region: " CRP
-./ngrok tcp --region $CRP 5900 &>/dev/null &  # Use VNC port 5900
+./ngrok tcp --region $CRP 3389 &>/dev/null &  # Use RDP port 3389
 echo "===================================="
-echo "Install VNC Kali Linux"
+echo "Install RDP Kali Linux"
 echo "===================================="
-docker pull lukaszlach/kali-desktop
+docker pull kalilinux/kali-rolling
 clear
 echo "===================================="
-echo "Start VNC Kali Linux"
+echo "Start RDP Kali Linux"
 echo "===================================="
 echo "===================================="
 echo "Username : kali"
 echo "Password : kali"
-echo "VNC Address:"
-curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p' | sed 's/0.tcp/6.tcp/'
-echo "IP:" && curl --silent --show-error ipconfig.io
+echo "RDP Address:"
+RDP_DOMAIN=$(curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p' | sed 's/0.tcp/6.tcp/')
+RDP_IP=$(nslookup $RDP_DOMAIN | grep -A1 'Name:' | tail -n1 | awk '{print $2}')
+RDP_PORT=$(echo $RDP_DOMAIN | awk -F: '{print $2}')
+echo "$RDP_IP:$RDP_PORT"
 echo "===================================="
 echo "===================================="
-echo "Don't close this tab to keep VNC running"
-echo "Wait to finish bot and next open your VNC client to connect"
+echo "Don't close this tab to keep RDP running"
+echo "Wait to finish bot and next open your RDP client to connect"
 echo "===================================="
 echo "===================================="
-docker run --rm --hostname kali --shm-size 1g -p 5900:5900 lukaszlach/kali-desktop > /dev/null 2>&1
+docker run --rm --hostname kali --shm-size 1g -p 3389:3389 kalilinux/kali-rolling > /dev/null 2>&1
 b='\033[1m'
 r='\E[31m'
 g='\E[32m'
