@@ -1,6 +1,6 @@
 #!/bin/sh
 # Free XRDP KaliLinux | https://aank.me/Youtube
-rm -rf ngrok ngrok.zip ng.sh xrdp-kali.sh x.sh > /dev/null 2>&1
+rm -rf ngrok ngrok.zip ng.sh x.sh > /dev/null 2>&1
 wget -O ng.sh https://bit.ly/GCngr0k > /dev/null 2>&1
 chmod +x ng.sh
 ./ng.sh authtoken 2KbuGYwdWjP7k5ToRoGWpqYZzHe_46powYYZXL35ugHKJtruJ
@@ -28,7 +28,7 @@ echo "===================================="
 echo "===================================="
 echo "Username : kali"
 echo "Password : kali"
-echo "XRDP Address:"
+echo "RDP Address:"
 IP=$(./ngrok tcp --region $CRP 3388 | grep "Forwarding" | awk '{print $4}')
 PORT=$(./ngrok tcp --region $CRP 3388 | grep "Forwarding" | awk -F ':' '{print $2}')
 echo "$IP:$PORT"
@@ -36,7 +36,7 @@ echo "IP:" && curl --silent --show-error ipconfig.io
 echo "===================================="
 echo "===================================="
 echo "Don't close this tab to keep RDP running"
-echo "Wait to finish bot and next open RDC to connect"
+echo "Wait to finish bot and next open RDP client to connect"
 echo "===================================="
 echo "===================================="
 docker run --rm -it --hostname aank -p $PORT:3389 kalilinux/kali-rolling > /dev/null 2>&1
