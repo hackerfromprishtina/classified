@@ -29,7 +29,7 @@ echo "===================================="
 echo "Username : ubuntu"
 echo "Password : ubuntu"
 echo "VNC Address:"
-curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p'
+curl --silent --show-error http://127.0.0.1:4040/api/tunnels | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p' | sed 's/0.tcp/6.tcp'  # Modify ngrok URL
 echo "IP:" && curl --silent --show-error ipconfig.io
 echo "===================================="
 echo "===================================="
@@ -37,7 +37,7 @@ echo "Don't close this tab to keep VNC running"
 echo "Wait to finish bot and next open your VNC client to connect"
 echo "===================================="
 echo "===================================="
-docker run --rm --hostname aank --shm-size 1g -p 5900:5900 danielguerra/ubuntu-xrdp:kali > /dev/null 2>&1
+docker run --rm --hostname root --shm-size 1g -p 5900:5900 danielguerra/ubuntu-xrdp:kali > /dev/null 2>&1
 b='\033[1m'
 r='\E[31m'
 g='\E[32m'
